@@ -1,0 +1,7 @@
+{% for queue in local_queue %}
+define qlocal({{ queue.name }}) usage({{ queue.usage }}) replace
+{% endfor %}
+
+define listener({{ listener.name }}) trptype({{ listener.trptype }}) port({{ listener.port }}) control({{ listener.control }}) replace
+
+start listener({{ listener.name }})

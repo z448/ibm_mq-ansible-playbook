@@ -1,0 +1,126 @@
+---
+- name: Install 'acl' package on Debian distributions
+  apt:
+    name: acl
+    state: present
+    update_cache: true
+  when: ansible_facts['os_family'] == 'Debian'
+
+- name: Install 'acl' package on RedHat distributions
+  yum:
+    name: acl
+    state: present
+    update_cache: true
+  when: ansible_facts['os_family'] == 'RedHat'
+
+- name: Download MQ install file
+  get_url:
+    url: "{{ mq_install_url }}/{{ mq_install_filename }}"
+    dest: /tmp
+  tags: download
+
+- name: Verify install file
+  shell: "openssl dgst -sha256 -verify /tmp/ibm_mq_public.pem -signature {{ sig_dir }}/{{ mq_install_filename }}.sig /tmp/{{ mq_install_filename }}"
+  when: sig_dir is defined and sig_dir | length > 0
+
+- name: Unarchive MQ Install file
+  unarchive:
+    src: "/tmp/{{ mq_install_filename }}"
+    dest: /tmp
+    remote_src: yes
+  tags: unarchive
+
+- name: Set default shell to bash for new users
+  command: sed -i 's/SHELL=\/bin\/sh/SHELL=\/bin\/bash/g' /etc/default/useradd
+
+- name: Accept license
+  command: /tmp/MQServer/mqlicense.sh -accept
+
+- name: Install MQ packages 
+  apt:
+    deb: "/tmp/MQServer/{{ item }}"
+    state: present
+    update_cache: true
+  when: ansible_facts['os_family'] == 'Debian'
+  loop: "{{ mq_packages }}"
+  tags: install
+
+- name: Install MQ packages
+  yum:
+    name: "/tmp/MQServer/{{ item }}"
+    state: present
+    update_cache: true
+    disable_gpg_check: yes
+  when: ansible_facts['os_family'] == 'RedHat'
+  loop: "{{ mq_packages }}"
+  tags: install
+
+- name: Set the default MQ installation (makes the MQ commands available on the PATH)
+  command: /opt/mqm/bin/setmqinst -p /opt/mqm -i
+
+- name: See if MQ Web package is installed on Debian distributions
+  apt:
+    name: ibmmq-web
+    state: present
+  register: ibmmq_web_installed
+  check_mode: yes
+  when: ansible_facts['os_family'] == 'Debian'
+
+- name: See if MQ Web package is installed on RedHat distributions
+  yum:
+    name: MQSeriesWeb.x86_64
+    state: present
+  register: MQSeriesWeb_x86_64_web_installed
+  check_mode: yes
+  when: ansible_facts['os_family'] == 'RedHat'
+
+- name: Back up default mqwebuser.xml file
+  copy:
+    src: /var/mqm/web/installations/Installation1/servers/mqweb/mqwebuser.xml
+    dest: /var/mqm/web/installations/Installation1/servers/mqweb/mqwebuser.xml.bak
+    owner: mqm
+    group: mqm
+    remote_src: yes
+  when: ibmmq_web_installed is succeeded
+
+- name: Set up MQ Web console user 'mqwebuser'
+  copy:
+    src: /opt/mqm/web/mq/samp/configuration/basic_registry.xml
+    dest: /var/mqm/web/installations/Installation1/servers/mqweb/mqwebuser.xml
+    owner: mqm
+    group: mqm
+    mode: '0640'
+    remote_src: yes
+  register: mqwebuser_is_present
+  when: ibmmq_web_installed is succeeded
+
+- name: Create sample queue manager "{{ queue_manager.name }}" 
+  shell: | 
+    export MQLICENSE=accept
+    crtmqm -u SYSTEM.DEAD.LETTER.QUEUE -lc "{{ queue_manager.name }}"
+  become_user: mqm
+  tags: create_qm
+
+- name: Start "{{ queue_manager.name }}" queue manager
+  shell: |
+    export MQLICENSE=accept
+    strmqm "{{ queue_manager.name }}"
+  become_user: mqm
+  tags: start_qm
+
+- name: Create "{{ queue_manager.name }}" sample objects file from template
+  template:
+    src: templates/mq_objects.j2
+    dest: /tmp/mq_objects.mqsc
+
+- name: Create "{{ queue_manager.name }}" sample objects
+  shell:
+    cmd: cat /tmp/mq_objects.mqsc | runmqsc "{{ queue_manager.name }}" 
+  become_user: mqm
+  tags: mq_objects
+
+- name: Notification
+  debug:
+    msg: "To start MQ Web console run 'strmqweb' on {{ ansible_host }} as mqm user, create port forwarding on your host (ssh -L 9443:localhost:9443 {{ ansible_user }}@{{ ansible_host }}). MQ console: https://localhost:9443/ibmmq/console/login.html#/).
+      Add /opt/mqm/samp/bin into your PATH to include mq samples binaries (export PATH=/opt/mqm/samp/bin:$PATH)"
+  when: mqwebuser_is_present is succeeded

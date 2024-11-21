@@ -1,0 +1,16 @@
+---
+queue_manager:
+  name: UB_QM
+
+listener: 
+  name: UB_LSR
+  trptype: TCP
+  port: 1414
+  control: QMGR
+
+local_queue:
+  - { name: UB_Q1, usage: NORMAL } 
+  - { name: UB_Q2, usage: NORMAL }
+  - { name: UB_XMITQ, usage: XMITQ }
+
+

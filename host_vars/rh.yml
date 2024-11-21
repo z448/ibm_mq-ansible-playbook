@@ -1,0 +1,16 @@
+---
+queue_manager:
+  name: RH_QM
+
+listener: 
+  name: RH_LSR
+  trptype: TCP
+  port: 1415
+  control: QMGR
+
+local_queue:
+  - { name: RH_Q1, usage: NORMAL } 
+  - { name: RH_Q2, usage: NORMAL }
+  - { name: RH_XMITQ, usage: XMITQ }
+
+
