@@ -1,0 +1,23 @@
+---
+mq_install_url: "https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/messaging/mqadv"
+mq_recomended_packages: 
+      - bash
+      - bc
+      - coreutils
+      - curl
+      - findutils
+      - gawk
+      - grep
+      - glibc
+      - util-linux
+      - passwd
+      - procps-ng
+      - rpm
+      - sed
+      - tar
+      - vim
+      - telnet
+      - iputils
+      - rsyslog
+      - less
+      - ca-certificates

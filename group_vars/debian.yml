@@ -1,0 +1,63 @@
+---
+mq_install_filename: "9.4.0.0-IBM-MQ-Advanced-for-Developers-UbuntuLinuxX64.tar.gz"
+
+# directory in which sha256sum and sig files are located
+sha256sum: "/tmp"
+sig_dir: "/tmp"
+
+mq_packages:
+  - ibmmq-runtime_9.4.0.0_amd64.deb
+  - ibmmq-jre_9.4.0.0_amd64.deb
+  - ibmmq-gskit_9.4.0.0_amd64.deb
+  - ibmmq-server_9.4.0.0_amd64.deb
+  - ibmmq-java_9.4.0.0_amd64.deb
+  - ibmmq-sdk_9.4.0.0_amd64.deb 
+  - ibmmq-client_9.4.0.0_amd64.deb
+  - ibmmq-samples_9.4.0.0_amd64.deb
+  - ibmmq-web_9.4.0.0_amd64.deb
+  - ibmmq-xrservice_9.4.0.0_amd64.deb
+  - ibmmq-man_9.4.0.0_amd64.deb
+  - ibmmq-amqp_9.4.0.0_amd64.deb
+  - ibmmq-ams_9.4.0.0_amd64.deb
+# - ibmmq-sfbridge_9.4.0.0_amd64.deb
+# - ibmmq-bcbridge_9.4.0.0_amd64.deb
+  - ibmmq-ftbase_9.4.0.0_amd64.deb
+  - ibmmq-ftagent_9.4.0.0_amd64.deb
+  - ibmmq-ftlogger_9.4.0.0_amd64.deb
+  - ibmmq-ftservice_9.4.0.0_amd64.deb
+  - ibmmq-fttools_9.4.0.0_amd64.deb
+  - ibmmq-msg-cs_9.4.0.0_amd64.deb
+  - ibmmq-msg-de_9.4.0.0_amd64.deb
+  - ibmmq-msg-es_9.4.0.0_amd64.deb
+  - ibmmq-msg-fr_9.4.0.0_amd64.deb
+  - ibmmq-msg-hu_9.4.0.0_amd64.deb
+  - ibmmq-msg-it_9.4.0.0_amd64.deb
+  - ibmmq-msg-ja_9.4.0.0_amd64.deb
+  - ibmmq-msg-ko_9.4.0.0_amd64.deb
+  - ibmmq-msg-pl_9.4.0.0_amd64.deb
+  - ibmmq-msg-pt_9.4.0.0_amd64.deb
+  - ibmmq-msg-ru_9.4.0.0_amd64.deb
+  - ibmmq-msg-zh-cn_9.4.0.0_amd64.deb
+  - ibmmq-msg-zh-tw_9.4.0.0_amd64.deb
+
+mq_recomended_packages:
+  - bash
+  - bc
+  - coreutils
+  - curl
+  - findutils
+  - gawk
+  - grep
+  - util-linux
+  - passwd
+  - procps
+  - rpm
+  - sed
+  - tar
+  - vim
+  - telnet
+  - iputils-ping
+  - rsyslog
+  - less
+  - ca-certificates
+

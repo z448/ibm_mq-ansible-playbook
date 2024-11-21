@@ -1,0 +1,63 @@
+---
+mq_install_filename: "9.4.0.0-IBM-MQ-Advanced-for-Developers-LinuxX64.tar.gz"
+                                                     
+# directory in which sha256sum and sig files are located
+sha256sum: "/tmp"
+sig_dir: ""
+
+mq_packages:
+  - MQSeriesRuntime-9.4.0-0.x86_64.rpm
+  - MQSeriesJRE-9.4.0-0.x86_64.rpm
+  - MQSeriesGSKit-9.4.0-0.x86_64.rpm
+  - MQSeriesServer-9.4.0-0.x86_64.rpm
+  - MQSeriesJava-9.4.0-0.x86_64.rpm
+  - MQSeriesSDK-9.4.0-0.x86_64.rpm
+  - MQSeriesClient-9.4.0-0.x86_64.rpm
+  - MQSeriesSamples-9.4.0-0.x86_64.rpm
+  - MQSeriesWeb-9.4.0-0.x86_64.rpm
+  - MQSeriesXRService-9.4.0-0.x86_64.rpm
+  - MQSeriesMan-9.4.0-0.x86_64.rpm
+  - MQSeriesAMQP-9.4.0-0.x86_64.rpm
+  - MQSeriesAMS-9.4.0-0.x86_64.rpm
+# - MQSeriesSFBridge-9.4.0-0.x86_64.rpm
+# - MQSeriesBCBridge-9.4.0-0.x86_64.rpm
+  - MQSeriesFTBase-9.4.0-0.x86_64.rpm
+  - MQSeriesFTAgent-9.4.0-0.x86_64.rpm
+  - MQSeriesFTLogger-9.4.0-0.x86_64.rpm
+  - MQSeriesFTService-9.4.0-0.x86_64.rpm
+  - MQSeriesFTTools-9.4.0-0.x86_64.rpm
+  - MQSeriesMsg_cs-9.4.0-0.x86_64.rpm
+  - MQSeriesMsg_de-9.4.0-0.x86_64.rpm
+  - MQSeriesMsg_es-9.4.0-0.x86_64.rpm
+  - MQSeriesMsg_fr-9.4.0-0.x86_64.rpm
+  - MQSeriesMsg_hu-9.4.0-0.x86_64.rpm
+  - MQSeriesMsg_it-9.4.0-0.x86_64.rpm
+  - MQSeriesMsg_ja-9.4.0-0.x86_64.rpm
+  - MQSeriesMsg_ko-9.4.0-0.x86_64.rpm
+  - MQSeriesMsg_pl-9.4.0-0.x86_64.rpm
+  - MQSeriesMsg_pt-9.4.0-0.x86_64.rpm
+  - MQSeriesMsg_ru-9.4.0-0.x86_64.rpm
+  - MQSeriesMsg_Zh_CN-9.4.0-0.x86_64.rpm
+  - MQSeriesMsg_Zh_TW-9.4.0-0.x86_64.rpm
+
+mq_recomended_packages:
+  - bash
+  - bc
+  - coreutils
+  - curl
+  - findutils
+  - gawk
+  - grep
+  - util-linux
+  - passwd
+  - procps-ng
+  - rpm
+  - sed
+  - tar
+  - vim
+  - telnet
+  - iputils.x86_64
+  - rsyslog
+  - less
+  - ca-certificates
+
